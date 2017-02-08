@@ -47,7 +47,6 @@ class DeckOfCards {
        deck[topCard] = null;        // Get rid of card so that it won't be dealt again
        topCard++;                   // Adjust deck pointer to reflect decrease in available cards
        if (topCard >= 52) {
-           System.out.printf("Error: Cannot deal more cards. Returning null card.\n");
            return null;
        }
        return cardDeal;
@@ -76,18 +75,28 @@ class DeckOfCards {
     card = myDeck.deck[0];
     System.out.printf("\tCard # %d -- Type: %s, Suit: %s, Face Value: %d, Game Value: %d\n", 1, card.getType(), card.getSuit(), card.getFaceVal(), card.getGameVal());
     System.out.printf("Deal two cards:\n");
-    System.out.printf("\tTopCard before dealing: %d\n", myDeck.topCard);
+    System.out.printf("\tPointer to next card before dealing: %d\n", myDeck.topCard);
     PlayingCard deal = myDeck.dealNext();
     System.out.printf("\tDealt Card -- Type: %s, Suit: %s, Face Value: %d, Game Value: %d\n", deal.getType(), deal.getSuit(), deal.getFaceVal(), deal.getGameVal());
     deal = myDeck.dealNext();
     System.out.printf("\tDealt Card -- Type: %s, Suit: %s, Face Value: %d, Game Value: %d\n", deal.getType(), deal.getSuit(), deal.getFaceVal(), deal.getGameVal());
-    System.out.printf("\tTopCard after dealing cards: %d\n", myDeck.topCard);
+    System.out.printf("\tPointer to next card after dealing cards: %d\n", myDeck.topCard);
     System.out.printf("Discard last dealt card (Type: %s, Suit: %s, Face Value: %d, Game Value: %d):\n", deal.getType(), deal.getSuit(), deal.getFaceVal(), deal.getGameVal());
     myDeck.returnCard(deal);
-    System.out.printf("\tTopCard: %d\n", myDeck.topCard);
+    System.out.printf("\tPointer to next card: %d\n", myDeck.topCard);
     System.out.printf("Dealing card (* Notice cards are shuffled when cards are discarded and returned to deck):\n");
     deal = myDeck.dealNext();
     System.out.printf("\tDealt Card -- Type: %s, Suit: %s, Face Value: %d, Game Value: %d\n", deal.getType(), deal.getSuit(), deal.getFaceVal(), deal.getGameVal());
+    System.out.printf("Deal 50 more cards to show what happens when a card requested to be dealt but deck is empty:\n");
+    for (int i=0; i<50; i++) {
+        deal = myDeck.dealNext();
+        System.out.printf("\tDealt Card #%d -- ", i+1);
+        try {
+            System.out.printf("Type: %s, Suit: %s, Face Value: %d, Game Value: %d\n", deal.getType(), deal.getSuit(), deal.getFaceVal(), deal.getGameVal());
+        } catch(NullPointerException e) {
+            System.out.printf("Error: Cannot deal card. Deck is empty.\n");
+        }
+    }
   }
 }
 
