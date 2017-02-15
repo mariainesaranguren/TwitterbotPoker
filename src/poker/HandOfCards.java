@@ -18,8 +18,8 @@ public class HandOfCards {
         this.sort();                                    // Sorts cards
     }
 
-    public void print() {
-        for (int i = 0; i < sizeOfHand; i++) {          // Iterates through hand and prints string representation of cards
+    public void print() {                               // Iterates through hand and prints string representation of cards
+        for (int i = 0; i < sizeOfHand; i++) {
             System.out.printf("%s ", hand[i].toString());
         }
         System.out.printf("\n");
@@ -29,8 +29,8 @@ public class HandOfCards {
         return deck;
     }
 
-    private void sort() {                               // Sorts hand A-K disregarding suits
-        for (int i = 0; i < sizeOfHand - 1; i++) {           // Performs insertion sort on the hand of cards
+    private void sort() {                               // Sorts hand 2-A disregarding suits
+        for (int i = 0; i < sizeOfHand - 1; i++) {      // Performs insertion sort on the hand of cards
             int j = i + 1;
             PlayingCard tmp = this.hand[j];
             while (j > 0 && tmp.getGameVal() < this.hand[j - 1].getGameVal()) {
@@ -133,8 +133,8 @@ public class HandOfCards {
         return false;
     }
 
-    public boolean isRoyalFlush() {                     // An ace-high straight flush
-        if (sizeOfHand < 5) {                           // Checks if hand has enough cards to make RoyalFlush
+    public boolean isRoyalFlush() {           // An ace-high straight flush
+        if (sizeOfHand < 5) {                 // Checks if hand has enough cards to make RoyalFlush
             return false;
         }
         for (int i = 0; i < sizeOfHand - 4; i++) {
@@ -147,8 +147,8 @@ public class HandOfCards {
         return false;
     }
 
-    public boolean isStraightFlush() {                  // Contains five cards of sequential rank, all of the same suit
-        if (sizeOfHand < 5) {                           // Checks if hand has enough cards to make StraightFlush
+    public boolean isStraightFlush() {       // Contains five cards of sequential rank, all of the same suit
+        if (sizeOfHand < 5) {                // Checks if hand has enough cards to make StraightFlush
             return false;
         }
         for (int i = 0; i < sizeOfHand - 4; i++) {
@@ -161,8 +161,8 @@ public class HandOfCards {
         return false;
     }
 
-    public boolean isStraight() {                       // Contains five cards of sequential rank, not all of the same suit
-        if (sizeOfHand < 5) {                           // Checks if hand has enough cards to make Straight
+    public boolean isStraight() {           // Contains five cards of sequential rank, not all of the same suit
+        if (sizeOfHand < 5) {               // Checks if hand has enough cards to make Straight
             return false;
         }
         for (int i = 0; i < sizeOfHand - 4; i++) {
@@ -216,10 +216,10 @@ public class HandOfCards {
         if (sizeOfHand < 2) {               // Checks if hand has enough cards to make OnePair
             return false;
         }
-        int pairsFound = 0;
-        for (int i = 0; i < sizeOfHand - 1; i++) {
+        int pairsFound = 0;                                                         // Leeps track of number of pairs found so that function returns true only when exactly one pair is found (false when there are no pairs, more than one pair, threeOfAKind, and fourOfAkind)
+        for (int i = 0; i < sizeOfHand - 1; i++) {                                  // Loops through hand and checks adjacent cards to see if they're a pair
             if (this.hand[i].getGameVal() == this.hand[i + 1].getGameVal()) {
-                pairsFound++;
+                pairsFound++;                                                       // Updates pairsFound to reflect new pairsFound
             }
         }
         if (pairsFound == 1) {
@@ -229,7 +229,7 @@ public class HandOfCards {
     }
 
     public boolean isHighHand() {
-        if (this.isOnePair() || this.isTwoPair() || this.isStraight() || this.isFlush() || this.isStraightFlush() || this.isRoyalFlush() || this.isThreeOfAKind() || this.isFourOfAKind() || this.isFullHouse()) {
+        if (this.isOnePair() || this.isTwoPair() || this.isStraight() || this.isFlush() || this.isStraightFlush() || this.isRoyalFlush() || this.isThreeOfAKind() || this.isFourOfAKind() || this.isFullHouse()) {      // Checks if card falls under category of any other hand combination
             return false;
         }
         return true;
