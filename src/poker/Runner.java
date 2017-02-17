@@ -1,6 +1,4 @@
 // Maria Ines Aranguren
-// Feb 15, 2017
-// Programming Assignment Week	#3: OOP Representation of a HandOfCards
 package poker;
 
 public class Runner {
@@ -41,6 +39,9 @@ public class Runner {
         if (myHand.isTwoPair()) {
             System.out.printf("The hand is a TwoPair!\n");
         }
+        
+        System.out.printf("Please run again to see another hand and its classification.\n");
+        
     }
 
 }
