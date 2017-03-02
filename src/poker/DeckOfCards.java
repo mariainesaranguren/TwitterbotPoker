@@ -19,8 +19,19 @@ class DeckOfCards {
         this.defineDeck();
     }
 
+    public static int getSIZE_OF_DECK() {
+        return SIZE_OF_DECK;
+    }
+    
+    public PlayingCard peekCard(int position) {
+        if (position < 0 || position > SIZE_OF_DECK) {
+            return null;
+        }
+        return this.deck[position];
+    }
+
     public void defineDeck() {    // Define attributes of each card within deck
-        this.deck = null;
+//        this.deck = null;
         this.deck = new PlayingCard[SIZE_OF_DECK];
         String[] types = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         char[] suits = {HEARTS, DIAMONDS, SPADES, CLUBS};
@@ -30,11 +41,12 @@ class DeckOfCards {
         for (int i = 0; i < SUIT_CARD_COUNT; i++) {
             for (char s : suits) {
                 PlayingCard card = new PlayingCard(types[i], s, faceValues[i], gameValues[i]);   // Instantiate card with corresponding parameters for type, suit, face value, game value
-                this.deck[cardCount] = card;                                                     // Place card in deck
+                this.deck[cardCount] = card;                                                    // Place card in deck
+//                System.out.println("playingcard: " + card.toString());
                 cardCount++;
             }
         }
-        return;
+        
     }
     
     public void reset() {           // Reinitializes the deck and shuffles it for a new game.
