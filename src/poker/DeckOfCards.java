@@ -31,7 +31,6 @@ class DeckOfCards {
     }
 
     public void defineDeck() {    // Define attributes of each card within deck
-//        this.deck = null;
         this.deck = new PlayingCard[SIZE_OF_DECK];
         String[] types = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         char[] suits = {HEARTS, DIAMONDS, SPADES, CLUBS};
@@ -42,7 +41,6 @@ class DeckOfCards {
             for (char s : suits) {
                 PlayingCard card = new PlayingCard(types[i], s, faceValues[i], gameValues[i]);   // Instantiate card with corresponding parameters for type, suit, face value, game value
                 this.deck[cardCount] = card;                                                    // Place card in deck
-//                System.out.println("playingcard: " + card.toString());
                 cardCount++;
             }
         }
@@ -66,6 +64,7 @@ class DeckOfCards {
 
     public synchronized PlayingCard dealNext() {  // Deal card and adjust pointer to next card
         if (topCard >= SIZE_OF_DECK) {
+            System.out.println("Error: All cards have been dealt and the deck is empty.");
             return null;
         }
         PlayingCard cardDeal;
@@ -77,6 +76,7 @@ class DeckOfCards {
 
     public synchronized void returnCard(PlayingCard discarded) {   // Returns discarded card to deck to make available for dealing
         if (discarded == null) {
+            System.out.println("Error: Returned card was null.");
             return;
         }
         this.deck[topCard - 1] = discarded;           // Puts card on top of topCard
