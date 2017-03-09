@@ -55,4 +55,7 @@ class PlayingCard {                        // Class definition to represent play
     public int getGameVal() {
         return this.gameVal;
     }
+    public boolean equals(PlayingCard other) {
+        return this.toString().equals(other.toString());
+    }
 }
