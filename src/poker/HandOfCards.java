@@ -4,10 +4,9 @@ package poker;
 import java.lang.Math;
 
 public class HandOfCards {
-
     private PlayingCard[] hand;
     private final int SIZE_OF_HAND = 5;
-    private final int PROBABILITY_FACTOR = 1000;    // Used to expand probability scores by multiplying them by this factor (so that the scores are spread farther apart and they're not decimal values)
+    private final int PROBABILITY_FACTOR = 100;    // Used to expand probability scores by multiplying them by this factor (so that the scores are spread farther apart and they're not decimal values)
     private DeckOfCards deck;
 
     private final String ROYAL_FLUSH_STR = "royalFlush";
@@ -45,9 +44,16 @@ public class HandOfCards {
 
     public void print() {                               // Iterates through hand and prints string representation of cards
         this.sort();
-        System.out.printf("\t");
         for (int i = 0; i < SIZE_OF_HAND; i++) {
             System.out.printf("%s ", hand[i].toString());
+        }
+        System.out.printf("\n");
+    }
+    
+    public void printDiscardProb() {                               // Iterates through hand and prints string representation of cards
+        System.out.printf("\t");
+        for (int i = 0; i < SIZE_OF_HAND; i++) {
+            System.out.printf("%s ", this.getDiscardProbability(i));
         }
         System.out.printf("\n");
     }
@@ -60,15 +66,31 @@ public class HandOfCards {
         return this.hand;
     } 
     
+    public void replaceCard(int position, PlayingCard newCard) {
+        this.hand[position] = newCard;
+    }
+    
     public int getSIZE_OF_HAND() {
         return SIZE_OF_HAND;
     }
 
-    private void sort() {                               // Sorts hand 2-A disregarding suits
+    public void sort() {                               // Sorts hand 2-A disregarding suits
         for (int i = 0; i < SIZE_OF_HAND - 1; i++) {      // Performs insertion sort on the hand of cards
             int j = i + 1;
             PlayingCard tmp = this.hand[j];
             while (j > 0 && tmp.getGameVal() < this.hand[j - 1].getGameVal()) {
+                this.hand[j] = this.hand[j - 1];
+                j--;
+            }
+            this.hand[j] = tmp;
+        }
+    }
+    
+    public void sortByDiscardProb() {                               // Sorts hand 2-A disregarding suits
+        for (int i = 0; i < SIZE_OF_HAND - 1; i++) {      // Performs insertion sort on the hand of cards
+            int j = i + 1;
+            PlayingCard tmp = this.hand[j];
+            while (j > 0 && this.getDiscardProbability(j) < this.getDiscardProbability(j - 1)) {
                 this.hand[j] = this.hand[j - 1];
                 j--;
             }
